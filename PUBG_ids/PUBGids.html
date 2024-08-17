@@ -1,1 +1,1365 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG ID Store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Material+Icons&display=swap" rel="stylesheet">
+    <style>
+
+
+body {
+    font-family: 'Google Sans', sans-serif;
+    background-color: #f0f2f5;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+.navbar, footer {
+    background: linear-gradient(270deg, #007bff, #6610f2);
+    background-size: 200% 200%;
+    animation: gradientAnimation 5s ease infinite;
+}
+.navbar-brand, .nav-link, .dropdown-toggle {
+    color: #fff !important;
+    font-family: 'Google Sans', sans-serif;
+    font-weight: 500;
+}
+.dropdown-menu {
+    padding: 20px;
+}
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+    height: 400px; /* Set a fixed height for the card */
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.card-img-top {
+    height: 200px; /* Set a fixed height for the image */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+.card-title {
+    font-weight: 500;
+    margin: 10px 0;
+}
+.card-text {
+    font-weight: 400;
+    color: #6c757d;
+    flex-grow: 1;
+}
+.price {
+    font-weight: 700;
+    color: #007bff;
+}
+.btn-primary, .btn-buy-now {
+    background: linear-gradient(270deg, #6610f2, #007bff);
+    border: none;
+    transition: background 0.3s ease;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-family: 'Google Sans', sans-serif;
+    min-width: 250px;
+    color: #fff;
+}
+.btn-primary:hover, .btn-buy-now:hover {
+    background: linear-gradient(270deg, #007bff, #6610f2);
+}
+.modal-header {
+    background-color: #6610f2;
+    color: #fff;
+    font-family: 'Google Sans', sans-serif;
+}
+.modal-title {
+    font-weight: 500;
+}
+.modal-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    color: #333;
+}
+.modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+.material-icons {
+    vertical-align: middle;
+    font-size: 1.2em;
+}
+.timer {
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1rem;
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.timer .material-icons {
+    margin-right: 5px;
+    font-size: 1.5rem;
+}
+.highlight {
+    color: #dc3545;
+    font-weight: bold;
+}
+footer {
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+@keyframes fadeIn {
+    100% { opacity: 1; }
+}
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+}
+.form-control {
+    border: none;
+    background-color: #f0f2f5;
+    font-size: 1em;
+}
+.form-control:disabled, .form-control[readonly] {
+    opacity: 1;
+}
+.icon-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #495057;
+    font-size: 1.2em;
+}
+.icon-btn:focus {
+    outline: none;
+}
+.input-group .icon-btn:hover {
+    color: #007bff;
+}
+.error-icon {
+    font-size: 3rem;
+    color: #dc3545;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">PUBG ID Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="paymentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Submit JazzCash Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="paymentDropdown">
+                    <form id="jazzCashForm">
+                        <div class="form-group">
+                            <label for="jazzCashAccount">JazzCash Account Number:</label>
+                            <input type="text" class="form-control" id="jazzCashAccount" placeholder="Enter your JazzCash account number">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="submitJazzCashAccount()">
+                            <span class="material-icons">check_circle</span> Submit
+                        </button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5 fade-in" id="home">
+    <h1 class="text-center mb-5">Find Your Perfect PUBG ID</h1>
+    <div class="row" id="id-store">
+        <!-- Items will be injected here by JavaScript -->
+    </div>
+</div>
+
+<!-- Modal for View Details -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">ID Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-buy-now" onclick="showRegistrationFee()">
+                    <span class="material-icons">shopping_cart</span> Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Registration Fee -->
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrationModalLabel">Registration Fee Required</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span class="material-icons error-icon">error_outline</span>
+                <p>Please pay a registration fee of <strong id="feeAmount" class="highlight"></strong> PKR to continue with your purchase.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="showJazzCashPayment()">
+                    <span class="material-icons">arrow_forward</span> Proceed to Payment
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for JazzCash Payment -->
+<div class="modal fade" id="jazzCashModal" tabindex="-1" role="dialog" aria-labelledby="jazzCashModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="timer">
+                <span class="material-icons">timer</span>
+                <span id="countdownTimer">05:00</span>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="jazzCashModalLabel">Complete Your Payment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="https://www.jazzcash.com.pk/assets/themes/jazzcash/img/logo-small.png" alt="JazzCash Logo" class="img-fluid mb-3">
+                <p>To complete your purchase, please transfer <strong id="highlightedAmount" class="highlight"></strong> PKR to the following JazzCash account:</p>
+                <p><strong>JazzCash Account Number:</strong> <span id="submittedJazzCashAccount">0300-XXXXXXX</span></p>
+                <p>After the payment is completed, click "Finish" to confirm your purchase.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <span class="material-icons">check_circle</span> Finish
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 PUBG ID Store. All rights reserved.</p>
+    <p>
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a>
+    </p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+    // Sample data for PUBG IDs with additional details and partially hidden credentials
+    const idData = [
+    {
+        "screenshot": "assets/ID_1.png",
+        "title": "Legendary PUBG ID",
+        "subtitle": "Top Rank, Rare Skins",
+        "details": "This ID includes several rare skins, high ranking stats, and special achievements.",
+        "rank": "Top 500",
+        "skins": ["Golden M416", "Dragon AKM", "Rare Outfit"],
+        "achievements": ["200+ Chicken Dinners", "Top 10% in Season 12"],
+        "email": "legendary_hunter1@gmail.com",
+        "password": "Legendary1234"
+    },
+    {
+        "screenshot": "assets/ID_2.png",
+        "title": "Elite PUBG ID",
+        "subtitle": "High Rank, Good Skins",
+        "details": "This ID comes with high ranking stats and a collection of good skins.",
+        "rank": "Top 1000",
+        "skins": ["Silver Kar98k", "Urban Camo Suit"],
+        "achievements": ["150+ Chicken Dinners", "Top 20% in Season 11"],
+        "email": "elite_master2@gmail.com",
+        "password": "EliteMaster456"
+    },
+    {
+        "screenshot": "assets/ID_3.png",
+        "title": "Pro Gamer PUBG ID",
+        "subtitle": "High K/D, Rare Achievements",
+        "details": "This ID is known for a high kill-to-death ratio and several rare achievements.",
+        "rank": "Top 800",
+        "skins": ["Black Gold UMP", "Crimson M416"],
+        "achievements": ["100+ Chicken Dinners", "Top 15% in Season 10"],
+        "email": "progamer_3@gmail.com",
+        "password": "ProGamerPass789"
+    },
+    {
+        "screenshot": "assets/ID_4.png",
+        "title": "Sniper Elite PUBG ID",
+        "subtitle": "Specialized in Sniping",
+        "details": "This ID has a reputation for excellent sniping and precision shooting.",
+        "rank": "Top 300",
+        "skins": ["Gold Kar98k", "Ghillie Suit"],
+        "achievements": ["250+ Headshots", "Top 5% in Sniper Challenges"],
+        "email": "sniper_elite4@gmail.com",
+        "password": "SniperShot456"
+    },
+    {
+        "screenshot": "assets/ID_5.png",
+        "title": "Champion PUBG ID",
+        "subtitle": "Dominating the Leaderboards",
+        "details": "This ID has consistently dominated the leaderboards with high scores.",
+        "rank": "Top 100",
+        "skins": ["Diamond M4", "Royal AKM"],
+        "achievements": ["300+ Chicken Dinners", "Top 2% in Season 9"],
+        "email": "champion_5@gmail.com",
+        "password": "ChampionGame567"
+    },
+    {
+        "screenshot": "assets/ID_6.png",
+        "title": "Conqueror PUBG ID",
+        "subtitle": "Maxed Out Rank",
+        "details": "This ID has reached the highest rank in PUBG, with numerous rare skins.",
+        "rank": "Top 50",
+        "skins": ["Glacier M416", "Conqueror Outfit"],
+        "achievements": ["400+ Chicken Dinners", "Conqueror Rank in Season 8"],
+        "email": "conqueror_king6@gmail.com",
+        "password": "ConquerorKing789"
+    },
+    {
+        "screenshot": "assets/ID_7.png",
+        "title": "Stealth PUBG ID",
+        "subtitle": "Master of Stealth",
+        "details": "This ID is known for stealth gameplay and outsmarting opponents.",
+        "rank": "Top 600",
+        "skins": ["Shadow M24", "Stealth Suit"],
+        "achievements": ["200+ Stealth Kills", "Top 10% in Stealth Challenges"],
+        "email": "stealth_master7@gmail.com",
+        "password": "StealthMode123"
+    },
+    {
+        "screenshot": "assets/ID_8.png",
+        "title": "Aggressor PUBG ID",
+        "subtitle": "High Kill Count",
+        "details": "This ID is recognized for aggressive play and high kill counts.",
+        "rank": "Top 700",
+        "skins": ["Bloodline AKM", "Fury Outfit"],
+        "achievements": ["350+ Kills", "Top 5% in Aggressive Challenges"],
+        "email": "aggressor_8@gmail.com",
+        "password": "AggressorGame234"
+    },
+    {
+        "screenshot": "assets/ID_9.png",
+        "title": "Strategist PUBG ID",
+        "subtitle": "Tactical Genius",
+        "details": "This ID is respected for its tactical approach to winning games.",
+        "rank": "Top 400",
+        "skins": ["Tactical M16", "Commander Outfit"],
+        "achievements": ["150+ Wins", "Top 8% in Tactical Challenges"],
+        "email": "strategist_9@gmail.com",
+        "password": "TacticalGenius345"
+    },
+    {
+        "screenshot": "assets/ID_10.png",
+        "title": "Warrior PUBG ID",
+        "subtitle": "Battle-Hardened",
+        "details": "This ID is known for its resilience and dominance in battles.",
+        "rank": "Top 250",
+        "skins": ["Warrior M762", "Gladiator Armor"],
+        "achievements": ["500+ Wins", "Top 3% in Season 7"],
+        "email": "warrior_master10@gmail.com",
+        "password": "WarriorForce678"
+    },
+    {
+        "screenshot": "assets/ID_11.png",
+        "title": "Sharpshooter PUBG ID",
+        "subtitle": "Expert Marksman",
+        "details": "This ID is famous for precision shooting and high accuracy.",
+        "rank": "Top 550",
+        "skins": ["Golden Sniper", "Marksman Gear"],
+        "achievements": ["400+ Headshots", "Top 10% in Shooting Challenges"],
+        "email": "sharpshooter_11@gmail.com",
+        "password": "MarksmanShot890"
+    },
+    {
+        "screenshot": "assets/ID_12.png",
+        "title": "Rogue PUBG ID",
+        "subtitle": "Unpredictable Tactics",
+        "details": "This ID is known for its unpredictable and rogue-style gameplay.",
+        "rank": "Top 850",
+        "skins": ["Rogue M416", "Outlaw Outfit"],
+        "achievements": ["100+ Surprise Kills", "Top 15% in Rogue Challenges"],
+        "email": "rogue_warrior12@gmail.com",
+        "password": "RoguePlayer321"
+    },
+    {
+        "screenshot": "assets/ID_13.png",
+        "title": "Guardian PUBG ID",
+        "subtitle": "Protector of the Team",
+        "details": "This ID is known for protecting teammates and leading them to victory.",
+        "rank": "Top 150",
+        "skins": ["Guardian Scar-L", "Protector Suit"],
+        "achievements": ["200+ Team Wins", "Top 2% in Guardian Challenges"],
+        "email": "guardian_angel13@gmail.com",
+        "password": "Guardian123"
+    },
+    {
+        "screenshot": "assets/ID_14.png",
+        "title": "Nightmare PUBG ID",
+        "subtitle": "Feared by Opponents",
+        "details": "This ID is feared by opponents due to its ruthless gameplay.",
+        "rank": "Top 900",
+        "skins": ["Nightmare AK47", "Dread Outfit"],
+        "achievements": ["80+ Fear Inducing Wins", "Top 20% in Season 6"],
+        "email": "nightmare_14@gmail.com",
+        "password": "NightmareGame456"
+    },
+    {
+        "screenshot": "assets/ID_15.png",
+        "title": "Invincible PUBG ID",
+        "subtitle": "Almost Impossible to Defeat",
+        "details": "This ID has a reputation for being invincible and nearly impossible to defeat.",
+        "rank": "Top 50",
+        "skins": ["Invincible M416", "Immortal Armor"],
+        "achievements": ["600+ Wins", "Top 1% in Season 5"],
+        "email": "invincible_hero15@gmail.com",
+        "password": "InvincibleHero789"
+    },
+    {
+        "screenshot": "assets/ID_16.png",
+        "title": "Commander PUBG ID",
+        "subtitle": "Leads Teams to Victory",
+        "details": "This ID is known for its leadership and strategic skills in team matches.",
+        "rank": "Top 300",
+        "skins": ["Commander M416", "General's Outfit"],
+        "achievements": ["350+ Team Wins", "Top 5% in Team Challenges"],
+        "email": "commander16@gmail.com",
+        "password": "CommanderLead123"
+    },
+    {
+        "screenshot": "assets/ID_17.png",
+        "title": "Blitzkrieg PUBG ID",
+        "subtitle": "Fast and Furious",
+        "details": "This ID is recognized for fast-paced gameplay and quick victories.",
+        "rank": "Top 200",
+        "skins": ["Blitzkrieg AKM", "Fury Outfit"],
+        "achievements": ["500+ Fast Wins", "Top 3% in Speed Challenges"],
+        "email": "blitzkrieg_17@gmail.com",
+        "password": "FastGame789"
+    },
+    {
+        "screenshot": "assets/ID_18.png",
+        "title": "Ranger PUBG ID",
+        "subtitle": "Master of the Wild",
+        "details": "This ID excels in outdoor and wilderness combat scenarios.",
+        "rank": "Top 450",
+        "skins": ["Ranger M16", "Wild Hunter Suit"],
+        "achievements": ["200+ Wilderness Wins", "Top 7% in Wilderness Challenges"],
+        "email": "ranger_wild18@gmail.com",
+        "password": "RangerWild456"
+    },
+    {
+        "screenshot": "assets/ID_19.png",
+        "title": "Phantom PUBG ID",
+        "subtitle": "Mysterious and Deadly",
+        "details": "This ID is known for its mysterious and deadly approach to gameplay.",
+        "rank": "Top 500",
+        "skins": ["Phantom AKM", "Ghost Suit"],
+        "achievements": ["250+ Stealth Wins", "Top 10% in Phantom Challenges"],
+        "email": "phantom_19@gmail.com",
+        "password": "PhantomGame123"
+    },
+    {
+        "screenshot": "assets/ID_20.png",
+        "title": "Marauder PUBG ID",
+        "subtitle": "Loot and Plunder",
+        "details": "This ID is renowned for looting and dominating in plunder missions.",
+        "rank": "Top 700",
+        "skins": ["Marauder UMP", "Plunder Suit"],
+        "achievements": ["150+ Plunder Wins", "Top 12% in Season 4"],
+        "email": "marauder_20@gmail.com",
+        "password": "MarauderPlunder456"
+    },
+    {
+        "screenshot": "assets/ID_21.png",
+        "title": "Vanguard PUBG ID",
+        "subtitle": "Frontline Warrior",
+        "details": "This ID is known for being at the forefront of battles and leading the charge.",
+        "rank": "Top 600",
+        "skins": ["Vanguard AKM", "Battlefront Gear"],
+        "achievements": ["300+ Frontline Wins", "Top 5% in Season 3"],
+        "email": "vanguard_21@gmail.com",
+        "password": "VanguardBattle123"
+    },
+    {
+        "screenshot": "assets/ID_22.png",
+        "title": "Bulldozer PUBG ID",
+        "subtitle": "Unstoppable Force",
+        "details": "This ID is known for its unstoppable momentum and crushing victories.",
+        "rank": "Top 100",
+        "skins": ["Bulldozer M762", "Crusher Armor"],
+        "achievements": ["500+ Crushing Wins", "Top 2% in Season 2"],
+        "email": "bulldozer_22@gmail.com",
+        "password": "BulldozerForce234"
+    },
+    {
+        "screenshot": "assets/ID_23.png",
+        "title": "Rogue Sniper PUBG ID",
+        "subtitle": "Expert in Stealth and Sniping",
+        "details": "This ID excels in stealth tactics and sniping from long distances.",
+        "rank": "Top 450",
+        "skins": ["Rogue Sniper Kar98k", "Silent Assassin Suit"],
+        "achievements": ["350+ Sniping Wins", "Top 6% in Sniper Challenges"],
+        "email": "roguesniper_23@gmail.com",
+        "password": "SilentSniper345"
+    },
+    {
+        "screenshot": "assets/ID_24.png",
+        "title": "Juggernaut PUBG ID",
+        "subtitle": "Heavy Hitter",
+        "details": "This ID is known for dealing heavy damage and dominating opponents.",
+        "rank": "Top 500",
+        "skins": ["Juggernaut M249", "Titanium Armor"],
+        "achievements": ["300+ Heavy Wins", "Top 8% in Season 1"],
+        "email": "juggernaut_24@gmail.com",
+        "password": "JuggernautHit789"
+    },
+    {
+        "screenshot": "assets/ID_25.png",
+        "title": "Specter PUBG ID",
+        "subtitle": "Ghost of the Battlefield",
+        "details": "This ID is feared for its ghost-like presence on the battlefield.",
+        "rank": "Top 550",
+        "skins": ["Specter M16", "Ethereal Gear"],
+        "achievements": ["400+ Ghost Wins", "Top 10% in Season 11"],
+        "email": "specter_25@gmail.com",
+        "password": "SpecterGhost123"
+    },
+    {
+        "screenshot": "assets/ID_26.png",
+        "title": "Hunter PUBG ID",
+        "subtitle": "Master of the Hunt",
+        "details": "This ID excels in hunting down opponents and finishing them off.",
+        "rank": "Top 300",
+        "skins": ["Hunter Scar-L", "Predator Suit"],
+        "achievements": ["500+ Hunt Wins", "Top 5% in Season 10"],
+        "email": "hunter_26@gmail.com",
+        "password": "HunterGame456"
+    },
+    
+    
+    
+    
+
+    {
+        "screenshot": "assets/ID_27.png",
+        "title": "Viper PUBG ID",
+        "subtitle": "Deadly and Fast",
+        "details": "This ID is known for quick, lethal attacks and superior speed.",
+        "rank": "Top 300",
+        "skins": ["Viper AKM", "Snakebite Outfit"],
+        "achievements": ["250+ Speed Kills", "Top 5% in Season 12"],
+        "email": "viper_master27@gmail.com",
+        "password": "ViperStrike789"
+    },
+    {
+        "screenshot": "assets/ID_28.png",
+        "title": "Gladiator PUBG ID",
+        "subtitle": "Champion of the Arena",
+        "details": "This ID excels in close-quarters combat and arena matches.",
+        "rank": "Top 200",
+        "skins": ["Gladiator M16", "Arena Armor"],
+        "achievements": ["300+ Arena Wins", "Top 2% in Season 11"],
+        "email": "gladiator_28@gmail.com",
+        "password": "ArenaChampion123"
+    },
+    {
+        "screenshot": "assets/ID_29.png",
+        "title": "Shadow PUBG ID",
+        "subtitle": "Master of Darkness",
+        "details": "This ID is renowned for its stealth and ability to operate in the shadows.",
+        "rank": "Top 350",
+        "skins": ["Shadow AK47", "Darkness Gear"],
+        "achievements": ["400+ Stealth Kills", "Top 7% in Season 10"],
+        "email": "shadow_master29@gmail.com",
+        "password": "ShadowForce456"
+    },
+    {
+        "screenshot": "assets/ID_30.png",
+        "title": "Spartan PUBG ID",
+        "subtitle": "Unyielding Warrior",
+        "details": "This ID is known for its resilience and fighting spirit, never backing down.",
+        "rank": "Top 150",
+        "skins": ["Spartan M762", "Warrior Armor"],
+        "achievements": ["500+ Combat Wins", "Top 3% in Season 9"],
+        "email": "spartan_30@gmail.com",
+        "password": "SpartanHero123"
+    },
+    {
+        "screenshot": "assets/ID_31.png",
+        "title": "Warlord PUBG ID",
+        "subtitle": "Dominates the Battlefield",
+        "details": "This ID is feared across the battlefield for its ruthless efficiency.",
+        "rank": "Top 250",
+        "skins": ["Warlord Scar-L", "Dominion Outfit"],
+        "achievements": ["600+ Dominating Wins", "Top 4% in Season 8"],
+        "email": "warlord_master31@gmail.com",
+        "password": "WarlordForce456"
+    },
+    {
+        "screenshot": "assets/ID_32.png",
+        "title": "Mercenary PUBG ID",
+        "subtitle": "Hired Gun",
+        "details": "This ID is known for its versatility and proficiency in all types of combat.",
+        "rank": "Top 400",
+        "skins": ["Mercenary AKM", "Tactical Gear"],
+        "achievements": ["350+ Mission Wins", "Top 6% in Season 7"],
+        "email": "mercenary_32@gmail.com",
+        "password": "MercenaryGun789"
+    },
+    {
+        "screenshot": "assets/ID_33.png",
+        "title": "Samurai PUBG ID",
+        "subtitle": "Honor and Precision",
+        "details": "This ID is respected for its honorable gameplay and precise tactics.",
+        "rank": "Top 180",
+        "skins": ["Samurai M416", "Honor Armor"],
+        "achievements": ["400+ Honorable Wins", "Top 5% in Season 6"],
+        "email": "samurai_33@gmail.com",
+        "password": "SamuraiBlade123"
+    },
+    {
+        "screenshot": "assets/ID_34.png",
+        "title": "Berserker PUBG ID",
+        "subtitle": "Uncontrolled Fury",
+        "details": "This ID is known for its wild, aggressive playstyle, leaving chaos in its wake.",
+        "rank": "Top 500",
+        "skins": ["Berserker UMP", "Rage Suit"],
+        "achievements": ["450+ Aggressive Wins", "Top 10% in Season 5"],
+        "email": "berserker_34@gmail.com",
+        "password": "BerserkerFury456"
+    },
+    {
+        "screenshot": "assets/ID_35.png",
+        "title": "Paladin PUBG ID",
+        "subtitle": "Defender of the Weak",
+        "details": "This ID is known for protecting weaker players and leading teams to victory.",
+        "rank": "Top 320",
+        "skins": ["Paladin M16", "Defender Gear"],
+        "achievements": ["200+ Team Wins", "Top 8% in Season 4"],
+        "email": "paladin_35@gmail.com",
+        "password": "PaladinShield789"
+    },
+    {
+        "screenshot": "assets/ID_36.png",
+        "title": "Hunter-Killer PUBG ID",
+        "subtitle": "Pursuer of Prey",
+        "details": "This ID excels in tracking and eliminating targets with deadly efficiency.",
+        "rank": "Top 380",
+        "skins": ["Hunter-Killer AKM", "Predator Armor"],
+        "achievements": ["500+ Prey Eliminations", "Top 7% in Season 3"],
+        "email": "hunterkiller_36@gmail.com",
+        "password": "HunterKiller123"
+    },
+    {
+        "screenshot": "assets/ID_37.png",
+        "title": "Titan PUBG ID",
+        "subtitle": "Immense Strength",
+        "details": "This ID is known for its strength and resilience, dominating the battlefield.",
+        "rank": "Top 100",
+        "skins": ["Titan Scar-L", "Titanium Armor"],
+        "achievements": ["650+ Wins", "Top 1% in Season 2"],
+        "email": "titan_37@gmail.com",
+        "password": "TitanPower456"
+    },
+    {
+        "screenshot": "assets/ID_38.png",
+        "title": "Specter Elite PUBG ID",
+        "subtitle": "Master of the Unknown",
+        "details": "This ID excels in creating confusion and using it to its advantage.",
+        "rank": "Top 450",
+        "skins": ["Specter Elite M416", "Ghost Armor"],
+        "achievements": ["400+ Surprise Wins", "Top 9% in Season 1"],
+        "email": "specter_elite38@gmail.com",
+        "password": "SpecterElite123"
+    },
+    {
+        "screenshot": "assets/ID_39.png",
+        "title": "Vanguard Elite PUBG ID",
+        "subtitle": "Leading from the Front",
+        "details": "This ID is known for leading the charge in battle and inspiring others.",
+        "rank": "Top 300",
+        "skins": ["Vanguard Elite AKM", "Battlefront Armor"],
+        "achievements": ["500+ Frontline Wins", "Top 3% in Season 2"],
+        "email": "vanguard_elite39@gmail.com",
+        "password": "VanguardElite456"
+    },
+    {
+        "screenshot": "assets/ID_40.png",
+        "title": "Phoenix PUBG ID",
+        "subtitle": "Rising from the Ashes",
+        "details": "This ID is known for its ability to come back stronger after every defeat.",
+        "rank": "Top 550",
+        "skins": ["Phoenix M416", "Rebirth Armor"],
+        "achievements": ["400+ Comeback Wins", "Top 5% in Season 3"],
+        "email": "phoenix_40@gmail.com",
+        "password": "PhoenixRising123"
+    },
+    {
+        "screenshot": "assets/ID_41.png",
+        "title": "Cyclone PUBG ID",
+        "subtitle": "Fast and Furious",
+        "details": "This ID is known for its quick decisions and rapid executions.",
+        "rank": "Top 200",
+        "skins": ["Cyclone AKM", "Tempest Armor"],
+        "achievements": ["450+ Speed Wins", "Top 2% in Season 4"],
+        "email": "cyclone_41@gmail.com",
+        "password": "CycloneForce456"
+    },
+    {
+        "screenshot": "assets/ID_42.png",
+        "title": "Bulwark PUBG ID",
+        "subtitle": "Impenetrable Defense",
+        "details": "This ID is recognized for its unbeatable defenses and strategic plays.",
+        "rank": "Top 350",
+        "skins": ["Bulwark Scar-L", "Fortress Armor"],
+        "achievements": ["500+ Defensive Wins", "Top 4% in Season 5"],
+        "email": "bulwark_42@gmail.com",
+        "password": "BulwarkShield789"
+    },
+    {
+        "screenshot": "assets/ID_43.png",
+        "title": "Assassin PUBG ID",
+        "subtitle": "Silent and Deadly",
+        "details": "This ID is known for its silent kills and precise eliminations.",
+        "rank": "Top 150",
+        "skins": ["Assassin M24", "Shadow Armor"],
+        "achievements": ["600+ Silent Wins", "Top 1% in Season 6"],
+        "email": "assassin_43@gmail.com",
+        "password": "SilentKiller456"
+    },
+    {
+        "screenshot": "assets/ID_44.png",
+        "title": "Brawler PUBG ID",
+        "subtitle": "Close Combat Specialist",
+        "details": "This ID excels in close-quarters combat, taking down enemies with brute force.",
+        "rank": "Top 400",
+        "skins": ["Brawler UMP", "Gladiator Armor"],
+        "achievements": ["450+ Combat Wins", "Top 7% in Season 7"],
+        "email": "brawler_44@gmail.com",
+        "password": "CombatForce123"
+    },
+    {
+        "screenshot": "assets/ID_45.png",
+        "title": "Sentinel PUBG ID",
+        "subtitle": "Unyielding Guardian",
+        "details": "This ID is known for its unwavering defense and protective nature.",
+        "rank": "Top 300",
+        "skins": ["Sentinel AKM", "Guardian Armor"],
+        "achievements": ["350+ Defensive Wins", "Top 5% in Season 8"],
+        "email": "sentinel_45@gmail.com",
+        "password": "GuardianForce789"
+    },
+    {
+        "screenshot": "assets/ID_46.png",
+        "title": "Harbinger PUBG ID",
+        "subtitle": "Bringer of Doom",
+        "details": "This ID is known for its apocalyptic playstyle, leaving destruction in its wake.",
+        "rank": "Top 100",
+        "skins": ["Harbinger M416", "Doom Armor"],
+        "achievements": ["500+ Destruction Wins", "Top 2% in Season 9"],
+        "email": "harbinger_46@gmail.com",
+        "password": "DoomBringer456"
+    },
+    {
+        "screenshot": "assets/ID_47.png",
+        "title": "Overlord PUBG ID",
+        "subtitle": "Rules the Battlefield",
+        "details": "This ID is known for its commanding presence and control over the battlefield.",
+        "rank": "Top 200",
+        "skins": ["Overlord Scar-L", "Emperor Armor"],
+        "achievements": ["600+ Commanding Wins", "Top 3% in Season 10"],
+        "email": "overlord_47@gmail.com",
+        "password": "CommandForce123"
+    },
+    {
+        "screenshot": "assets/ID_48.png",
+        "title": "Lionheart PUBG ID",
+        "subtitle": "Courageous and Strong",
+        "details": "This ID is respected for its bravery and strength in the face of danger.",
+        "rank": "Top 250",
+        "skins": ["Lionheart M762", "Courage Armor"],
+        "achievements": ["500+ Brave Wins", "Top 4% in Season 11"],
+        "email": "lionheart_48@gmail.com",
+        "password": "BraveryForce456"
+    },
+    {
+        "screenshot": "assets/ID_49.png",
+        "title": "Juggernaut Elite PUBG ID",
+        "subtitle": "Unstoppable Force",
+        "details": "This ID is known for its relentless power and ability to crush opponents.",
+        "rank": "Top 150",
+        "skins": ["Juggernaut Elite AKM", "Titanium Armor"],
+        "achievements": ["700+ Crushing Wins", "Top 1% in Season 12"],
+        "email": "juggernaut_elite49@gmail.com",
+        "password": "JuggernautPower123"
+    },
+    {
+        "screenshot": "assets/ID_50.png",
+        "title": "Maverick PUBG ID",
+        "subtitle": "Unpredictable Tactician",
+        "details": "This ID is known for its unorthodox strategies that catch opponents off guard.",
+        "rank": "Top 350",
+        "skins": ["Maverick M416", "Rogue Armor"],
+        "achievements": ["500+ Unpredictable Wins", "Top 7% in Season 11"],
+        "email": "maverick_50@gmail.com",
+        "password": "TacticalGenius123"
+    },
+    {
+        "screenshot": "assets/ID_51.png",
+        "title": "Tempest PUBG ID",
+        "subtitle": "Storm of the Battlefield",
+        "details": "This ID is known for its chaotic and overwhelming approach in battles.",
+        "rank": "Top 220",
+        "skins": ["Tempest AKM", "Storm Armor"],
+        "achievements": ["550+ Chaotic Wins", "Top 3% in Season 10"],
+        "email": "tempest_51@gmail.com",
+        "password": "StormForce789"
+    },
+    {
+        "screenshot": "assets/ID_52.png",
+        "title": "Valkyrie PUBG ID",
+        "subtitle": "Fierce Warrior",
+        "details": "This ID is known for its fierce and fearless approach, inspiring teammates.",
+        "rank": "Top 270",
+        "skins": ["Valkyrie M762", "Warrior Armor"],
+        "achievements": ["600+ Fearless Wins", "Top 4% in Season 9"],
+        "email": "valkyrie_52@gmail.com",
+        "password": "WarriorSpirit456"
+    },
+    
+   
+    
+     
+      
+       
+        
+         
+         
+    {
+        "screenshot": "assets/ID_53.png",
+        "title": "Dominator PUBG ID",
+        "subtitle": "Conquering the Battlefield",
+        "details": "This ID is known for its ability to dominate and control the battlefield.",
+        "rank": "Top 100",
+        "skins": ["Dominator M416", "Conqueror Armor"],
+        "achievements": ["700+ Dominating Wins", "Top 1% in Season 8"],
+        "email": "dominator_53@gmail.com",
+        "password": "Dominator1234"
+    },
+    {
+        "screenshot": "assets/ID_54.png",
+        "title": "Reaper PUBG ID",
+        "subtitle": "Collector of Souls",
+        "details": "This ID is feared for its ability to finish off opponents with deadly precision.",
+        "rank": "Top 200",
+        "skins": ["Reaper AKM", "Soul Collector Outfit"],
+        "achievements": ["600+ Deadly Wins", "Top 2% in Season 9"],
+        "email": "reaper_54@gmail.com",
+        "password": "ReaperSouls456"
+    },
+    {
+        "screenshot": "assets/ID_55.png",
+        "title": "Guardian Elite PUBG ID",
+        "subtitle": "Protector of the Realm",
+        "details": "This ID is renowned for its protective nature and ability to guard teammates.",
+        "rank": "Top 150",
+        "skins": ["Guardian Elite M762", "Paladin Armor"],
+        "achievements": ["500+ Team Wins", "Top 3% in Season 10"],
+        "email": "guardian_elite55@gmail.com",
+        "password": "GuardianElite789"
+    },
+    {
+        "screenshot": "assets/ID_56.png",
+        "title": "Executioner PUBG ID",
+        "subtitle": "Bringer of Justice",
+        "details": "This ID is known for its ruthless efficiency in eliminating opponents.",
+        "rank": "Top 250",
+        "skins": ["Executioner AKM", "Justice Armor"],
+        "achievements": ["450+ Justice Wins", "Top 4% in Season 11"],
+        "email": "executioner_56@gmail.com",
+        "password": "JusticeServed123"
+    },
+    {
+        "screenshot": "assets/ID_57.png",
+        "title": "Fury PUBG ID",
+        "subtitle": "Rage Unleashed",
+        "details": "This ID is recognized for its aggressive playstyle and unmatched fury.",
+        "rank": "Top 300",
+        "skins": ["Fury M416", "Rage Armor"],
+        "achievements": ["600+ Furious Wins", "Top 5% in Season 12"],
+        "email": "fury_57@gmail.com",
+        "password": "FuryRage456"
+    },
+    {
+        "screenshot": "assets/ID_58.png",
+        "title": "Warhawk PUBG ID",
+        "subtitle": "Master of Aerial Combat",
+        "details": "This ID excels in aerial combat and is known for its tactical maneuvers.",
+        "rank": "Top 200",
+        "skins": ["Warhawk M762", "Eagle Armor"],
+        "achievements": ["550+ Aerial Wins", "Top 3% in Season 11"],
+        "email": "warhawk_58@gmail.com",
+        "password": "EagleStrike789"
+    },
+    {
+        "screenshot": "assets/ID_59.png",
+        "title": "Crusader PUBG ID",
+        "subtitle": "Fighting for Justice",
+        "details": "This ID is known for its sense of justice and relentless pursuit of victory.",
+        "rank": "Top 180",
+        "skins": ["Crusader AKM", "Knight Armor"],
+        "achievements": ["450+ Justice Wins", "Top 4% in Season 10"],
+        "email": "crusader_59@gmail.com",
+        "password": "KnightJustice123"
+    },
+    {
+        "screenshot": "assets/ID_60.png",
+        "title": "Falcon PUBG ID",
+        "subtitle": "Sharp and Swift",
+        "details": "This ID is known for its sharp reflexes and swift executions in combat.",
+        "rank": "Top 220",
+        "skins": ["Falcon Scar-L", "Predator Armor"],
+        "achievements": ["600+ Swift Wins", "Top 5% in Season 9"],
+        "email": "falcon_60@gmail.com",
+        "password": "FalconStrike456"
+    },
+    {
+        "screenshot": "assets/ID_61.png",
+        "title": "Goliath PUBG ID",
+        "subtitle": "Giant Among Warriors",
+        "details": "This ID is recognized for its immense strength and dominance in combat.",
+        "rank": "Top 120",
+        "skins": ["Goliath M249", "Titan Armor"],
+        "achievements": ["650+ Giant Wins", "Top 2% in Season 8"],
+        "email": "goliath_61@gmail.com",
+        "password": "GoliathForce789"
+    },
+    {
+        "screenshot": "assets/ID_62.png",
+        "title": "Juggernaut Elite PUBG ID",
+        "subtitle": "Unstoppable Force",
+        "details": "This ID is known for its relentless power and ability to crush opponents.",
+        "rank": "Top 100",
+        "skins": ["Juggernaut Elite AKM", "Titanium Armor"],
+        "achievements": ["700+ Crushing Wins", "Top 1% in Season 7"],
+        "email": "juggernaut_elite62@gmail.com",
+        "password": "JuggernautPower456"
+    },
+    {
+        "screenshot": "assets/ID_63.png",
+        "title": "Maverick PUBG ID",
+        "subtitle": "Unpredictable Tactician",
+        "details": "This ID is known for its unorthodox strategies that catch opponents off guard.",
+        "rank": "Top 350",
+        "skins": ["Maverick M416", "Rogue Armor"],
+        "achievements": ["500+ Unpredictable Wins", "Top 7% in Season 6"],
+        "email": "maverick_63@gmail.com",
+        "password": "TacticalGenius789"
+    },
+    {
+        "screenshot": "assets/ID_64.png",
+        "title": "Tempest PUBG ID",
+        "subtitle": "Storm of the Battlefield",
+        "details": "This ID is known for its chaotic and overwhelming approach in battles.",
+        "rank": "Top 220",
+        "skins": ["Tempest AKM", "Storm Armor"],
+        "achievements": ["550+ Chaotic Wins", "Top 3% in Season 5"],
+        "email": "tempest_64@gmail.com",
+        "password": "StormForce123"
+    },
+    {
+        "screenshot": "assets/ID_65.png",
+        "title": "Valkyrie PUBG ID",
+        "subtitle": "Fierce Warrior",
+        "details": "This ID is known for its fierce and fearless approach, inspiring teammates.",
+        "rank": "Top 270",
+        "skins": ["Valkyrie M762", "Warrior Armor"],
+        "achievements": ["600+ Fearless Wins", "Top 4% in Season 4"],
+        "email": "valkyrie_65@gmail.com",
+        "password": "WarriorSpirit789"
+    },
+    {
+        "screenshot": "assets/ID_66.png",
+        "title": "Raven PUBG ID",
+        "subtitle": "Silent and Deadly",
+        "details": "This ID is known for its silent approach, striking fear in its opponents.",
+        "rank": "Top 400",
+        "skins": ["Raven AKM", "Shadow Armor"],
+        "achievements": ["450+ Silent Wins", "Top 7% in Season 3"],
+        "email": "raven_66@gmail.com",
+        "password": "SilentKiller456"
+    },
+    {
+        "screenshot": "assets/ID_67.png",
+        "title": "Titan PUBG ID",
+        "subtitle": "Immense Strength",
+        "details": "This ID is known for its strength and resilience, dominating the battlefield.",
+        "rank": "Top 100",
+        "skins": ["Titan Scar-L", "Titanium Armor"],
+        "achievements": ["650+ Wins", "Top 1% in Season 2"],
+        "email": "titan_67@gmail.com",
+        "password": "TitanPower123"
+    },
+    {
+        "screenshot": "assets/ID_68.png",
+        "title": "Specter Elite PUBG ID",
+        "subtitle": "Master of the Unknown",
+        "details": "This ID excels in creating confusion and using it to its advantage.",
+        "rank": "Top 450",
+        "skins": ["Specter Elite M416", "Ghost Armor"],
+        "achievements": ["400+ Surprise Wins", "Top 9% in Season 1"],
+        "email": "specter_elite68@gmail.com",
+        "password": "SpecterElite456"
+    },
+    {
+        "screenshot": "assets/ID_69.png",
+        "title": "Phoenix PUBG ID",
+        "subtitle": "Rising from the Ashes",
+        "details": "This ID is known for its ability to come back stronger after every defeat.",
+        "rank": "Top 550",
+        "skins": ["Phoenix M416", "Rebirth Armor"],
+        "achievements": ["400+ Comeback Wins", "Top 5% in Season 3"],
+        "email": "phoenix_69@gmail.com",
+        "password": "PhoenixRising123"
+    },
+    {
+        "screenshot": "assets/ID_70.png",
+        "title": "Cyclone PUBG ID",
+        "subtitle": "Fast and Furious",
+        "details": "This ID is known for its quick decisions and rapid executions.",
+        "rank": "Top 200",
+        "skins": ["Cyclone AKM", "Tempest Armor"],
+        "achievements": ["450+ Speed Wins", "Top 2% in Season 4"],
+        "email": "cyclone_70@gmail.com",
+        "password": "CycloneForce789"
+    },
+    {
+        "screenshot": "assets/ID_71.png",
+        "title": "Bulwark PUBG ID",
+        "subtitle": "Impenetrable Defense",
+        "details": "This ID is recognized for its unbeatable defenses and strategic plays.",
+        "rank": "Top 350",
+        "skins": ["Bulwark Scar-L", "Fortress Armor"],
+        "achievements": ["500+ Defensive Wins", "Top 4% in Season 5"],
+        "email": "bulwark_71@gmail.com",
+        "password": "BulwarkShield123"
+    },
+    {
+        "screenshot": "assets/ID_72.png",
+        "title": "Assassin PUBG ID",
+        "subtitle": "Silent and Deadly",
+        "details": "This ID is known for its silent kills and precise eliminations.",
+        "rank": "Top 150",
+        "skins": ["Assassin M24", "Shadow Armor"],
+        "achievements": ["600+ Silent Wins", "Top 1% in Season 6"],
+        "email": "assassin_72@gmail.com",
+        "password": "SilentKiller789"
+    },
+    {
+        "screenshot": "assets/ID_73.png",
+        "title": "Brawler PUBG ID",
+        "subtitle": "Close Combat Specialist",
+        "details": "This ID excels in close-quarters combat, taking down enemies with brute force.",
+        "rank": "Top 400",
+        "skins": ["Brawler UMP", "Gladiator Armor"],
+        "achievements": ["450+ Combat Wins", "Top 7% in Season 7"],
+        "email": "brawler_73@gmail.com",
+        "password": "CombatForce456"
+    },
+    {
+        "screenshot": "assets/ID_74.png",
+        "title": "Sentinel PUBG ID",
+        "subtitle": "Unyielding Guardian",
+        "details": "This ID is known for its unwavering defense and protective nature.",
+        "rank": "Top 300",
+        "skins": ["Sentinel AKM", "Guardian Armor"],
+        "achievements": ["350+ Defensive Wins", "Top 5% in Season 8"],
+        "email": "sentinel_74@gmail.com",
+        "password": "GuardianForce123"
+    },
+    {
+        "screenshot": "assets/ID_75.png",
+        "title": "Harbinger PUBG ID",
+        "subtitle": "Bringer of Doom",
+        "details": "This ID is known for its apocalyptic playstyle, leaving destruction in its wake.",
+        "rank": "Top 100",
+        "skins": ["Harbinger M416", "Doom Armor"],
+        "achievements": ["500+ Destruction Wins", "Top 2% in Season 9"],
+        "email": "harbinger_75@gmail.com",
+        "password": "DoomBringer789"
+    },
+    {
+        "screenshot": "assets/ID_76.png",
+        "title": "Overlord PUBG ID",
+        "subtitle": "Rules the Battlefield",
+        "details": "This ID is known for its commanding presence and control over the battlefield.",
+        "rank": "Top 200",
+        "skins": ["Overlord Scar-L", "Emperor Armor"],
+        "achievements": ["600+ Commanding Wins", "Top 3% in Season 10"],
+        "email": "overlord_76@gmail.com",
+        "password": "CommandForce456"
+    },
+    {
+        "screenshot": "assets/ID_77.png",
+        "title": "Lionheart PUBG ID",
+        "subtitle": "Courageous and Strong",
+        "details": "This ID is respected for its bravery and strength in the face of danger.",
+        "rank": "Top 250",
+        "skins": ["Lionheart M762", "Courage Armor"],
+        "achievements": ["500+ Brave Wins", "Top 4% in Season 11"],
+        "email": "lionheart_77@gmail.com",
+        "password": "BraveryForce789"
+    },
+    {
+        "screenshot": "assets/ID_78.png",
+        "title": "Stormbringer PUBG ID",
+        "subtitle": "Master of Chaos",
+        "details": "This ID excels in chaotic battle situations, thriving in the storm.",
+        "rank": "Top 300",
+        "skins": ["Stormbringer AKM", "Tempest Armor"],
+        "achievements": ["450+ Storm Wins", "Top 5% in Season 12"],
+        "email": "stormbringer_78@gmail.com",
+        "password": "StormForce123"
+    },
+    {
+        "screenshot": "assets/ID_79.png",
+        "title": "Vanguard Elite PUBG ID",
+        "subtitle": "Leading from the Front",
+        "details": "This ID is known for leading the charge in battle and inspiring others.",
+        "rank": "Top 200",
+        "skins": ["Vanguard Elite AKM", "Battlefront Armor"],
+        "achievements": ["500+ Frontline Wins", "Top 3% in Season 2"],
+        "email": "vanguard_elite79@gmail.com",
+        "password": "VanguardElite456"
+    },
+    {
+        "screenshot": "assets/ID_80.png",
+        "title": "Specter Elite PUBG ID",
+        "subtitle": "Master of the Unknown",
+        "details": "This ID excels in creating confusion and using it to its advantage.",
+        "rank": "Top 450",
+        "skins": ["Specter Elite M416", "Ghost Armor"],
+        "achievements": ["400+ Surprise Wins", "Top 9% in Season 1"],
+        "email": "specter_elite80@gmail.com",
+        "password": "SpecterElite123"
+    },
+ 
+];
+
+    // PKR prices - between 3k and 20k PKR
+    const pkrPrices = Array.from({ length: idData.length }, () => Math.floor(Math.random() * (20000 - 3000 + 1)) + 3000);
+    
+    // USD prices calculated from PKR prices
+    const usdPrices = pkrPrices.map(price => (price / 280).toFixed(2));
+
+    // Function to format numbers as currency
+    function formatCurrency(amount, currency = 'USD') {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency
+        }).format(amount);
+    }
+
+    // Function to format PKR amounts in short style (e.g., 10k)
+    function formatPKR(amount) {
+        return (amount / 1000).toFixed(0) + 'k';
+    }
+
+    // Function to render the items
+    function renderItems() {
+        const container = document.getElementById('id-store');
+        idData.forEach((item, index) => {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 mb-4 fade-in';
+            col.style.animationDelay = `${index * 0.2}s`;
+            col.innerHTML = `
+                <div class="card">
+                    <img src="${item.screenshot}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.subtitle}</p>
+                        <p class="card-text price">Price: ${formatPKR(pkrPrices[index])} PKR (${formatCurrency(usdPrices[index])})</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#detailsModal" onclick="showDetails(${index})">
+                            <span class="material-icons">info</span> View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(col);
+        });
+    }
+
+    // Function to show details in the modal
+    function showDetails(index) {
+        const item = idData[index];
+        const modalBody = document.querySelector('#detailsModal .modal-body');
+        document.getElementById('detailsModalLabel').innerText = item.title;
+        modalBody.innerHTML = `
+            <img src="${item.screenshot}" class="img-fluid mb-3" alt="${item.title}">
+            <p><strong>Details:</strong> ${item.details}</p>
+            <p><strong>Rank:</strong> ${item.rank}</p>
+            <p><strong>Skins:</strong> ${item.skins.join(', ')}</p>
+            <p><strong>Achievements:</strong> ${item.achievements.join(', ')}</p>
+            <div class="form-group">
+                <label for="email"><span class="material-icons">email</span> Email</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="email" value="${item.email}" readonly>
+                    <div class="input-group-append">
+                        <button class="icon-btn" onclick="toggleVisibility('email')">
+                            <span class="material-icons">visibility</span>
+                        </button>
+                        <button class="icon-btn d-none" id="copy-email" onclick="copyToClipboard('email')">
+                            <span class="material-icons">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password"><span class="material-icons">vpn_key</span> Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" value="${item.password}" readonly>
+                    <div class="input-group-append">
+                        <button class="icon-btn" onclick="toggleVisibility('password')">
+                            <span class="material-icons">visibility</span>
+                        </button>
+                        <button class="icon-btn d-none" id="copy-password" onclick="copyToClipboard('password')">
+                            <span class="material-icons">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Function to toggle visibility of password fields
+    function toggleVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = field.nextElementSibling.querySelector('.material-icons');
+        const copyIcon = field.nextElementSibling.querySelector('#copy-' + fieldId);
+
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.innerText = 'visibility_off';
+            copyIcon.classList.remove('d-none');
+        } else {
+            field.type = 'password';
+            icon.innerText = 'visibility';
+            copyIcon.classList.add('d-none');
+        }
+    }
+
+    // Function to copy content to clipboard
+    function copyToClipboard(fieldId) {
+        const field = document.getElementById(fieldId);
+        field.select();
+        document.execCommand('copy');
+        alert(`${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)} copied to clipboard!`);
+    }
+
+    // Function to show registration fee modal
+    function showRegistrationFee() {
+        const fee = Math.floor(Math.random() * (20000 - 3000 + 1)) + 3000; // Random fee between 3000 PKR and 20000 PKR
+        document.getElementById('feeAmount').innerText = `${fee.toLocaleString()} PKR`;
+        document.getElementById('highlightedAmount').innerText = `${fee.toLocaleString()} PKR`;
+        $('#detailsModal').modal('hide');
+        $('#registrationModal').modal('show');
+    }
+
+    // Function to submit JazzCash account number
+    function submitJazzCashAccount() {
+        const jazzCashAccount = document.getElementById('jazzCashAccount').value;
+        if (jazzCashAccount) {
+            document.getElementById('submittedJazzCashAccount').innerText = jazzCashAccount;
+        } else {
+            alert('Please enter a valid JazzCash account number.');
+        }
+    }
+
+    // Function to show JazzCash payment modal
+    function showJazzCashPayment() {
+        startCountdown(5, document.getElementById('countdownTimer'));
+        $('#registrationModal').modal('hide');
+        $('#jazzCashModal').modal('show');
+    }
+
+    // Function to start countdown
+    function startCountdown(minutes, element) {
+        let time = minutes * 60;
+        const interval = setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            element.innerText = `${minutes}:${seconds}`;
+            time--;
+
+            if (time < 0) {
+                clearInterval(interval);
+                element.innerText = '00:00';
+            }
+        }, 1000);
+    }
+
+    // Call the function to render items on page load
+    window.onload = renderItems;
+</script>
+
+</body>
+</html>
