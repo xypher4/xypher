@@ -16,6 +16,7 @@
             background-color: #1e1e2f;
             color: #ffffff;
             position: relative;
+            padding-bottom: 80px;
         }
 
         .navbar {
@@ -389,15 +390,41 @@
         }
 
         .error-section {
-            text-align: center;
-            color: #ff4f4f;
-            font-weight: 700;
+            background-color: #343a40;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 0 auto;
+            max-width: 600px;
+            box-shadow: none;
         }
 
         .error-section i {
             font-size: 4rem;
             margin-bottom: 20px;
             color: #ff4f4f;
+        }
+
+        .error-section .selected-bundle,
+        .error-section .pubg-id-display {
+            margin-bottom: 20px;
+            background-color: #495057;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-section .selected-bundle img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .error-section .pubg-id-display img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
         }
 
         .receipt-section h2 {
@@ -437,6 +464,109 @@
         .verified-uc-badge i {
             margin-right: 10px;
         }
+
+        /* Additional UI Enhancements */
+        .product-section .pubg-id-container {
+            background-color: #343a40;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .product-section .pubg-id-container input {
+            background-color: #495057;
+            border: 1px solid #6c757d;
+            color: #ffffff;
+        }
+
+        .payment-section .selected-bundle,
+        .payment-section .pubg-id-display,
+        .payment-section .selected-payment-method,
+        .payment-section .current-datetime,
+        .payment-section .terms-container {
+            background-color: #343a40;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .payment-section .selected-payment-method img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .checkout-details p {
+            font-size: 1.25rem;
+        }
+
+        .payment-method-card {
+            border: 1px solid #6c757d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .payment-method-card:hover {
+            background-color: #495057;
+        }
+
+        .payment-method-card input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+
+        .terms-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-container input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section p {
+                font-size: 1.25rem;
+            }
+
+            .feature-box h3,
+            .product-card h4,
+            .receipt-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .feature-box p,
+            .product-card p,
+            .receipt-section p {
+                font-size: 1rem;
+            }
+
+            .payment-section .selected-payment-method {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .payment-section .selected-payment-method img {
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -444,12 +574,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#"><i class="bi bi-bag-check"></i> UC Purchasing</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="showSection('hero-section')"><i
                                 class="bi bi-house-door"></i> Home</a>
@@ -534,6 +664,13 @@
         <div class="container">
             <h3 class="text-center mb-4" style="color: #ffd700;">Choose Your UC Package</h3>
             <div class="verified-uc-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
+            <!-- PUBG or BGMI ID Input Field -->
+            <div class="pubg-id-container">
+                <div class="form-group">
+                    <label for="pubg-id"><i class="material-icons">account_circle</i> Enter your PUBG or BGMI ID:</label>
+                    <input type="text" class="form-control" id="pubg-id" placeholder="Enter PUBG or BGMI ID">
+                </div>
+            </div>
             <div class="row" id="product-list">
                 <!-- Product Cards will be injected here by JavaScript -->
             </div>
@@ -547,10 +684,6 @@
                     <h5 class="card-title"><i class="material-icons">shopping_cart</i> Your Cart</h5>
                     <p id="cart-product-name">Product: PUBG UC - 6000</p>
                     <p id="cart-product-price">Price: $99.99</p>
-                    <div class="form-group">
-                        <label for="pubg-id">Enter your PUBG ID:</label>
-                        <input type="text" class="form-control" id="pubg-id" placeholder="Enter PUBG ID">
-                    </div>
                     <a href="#" class="btn btn-primary" onclick="proceedToPayment()"><i
                             class="bi bi-credit-card"></i> Proceed to Payment</a>
                 </div>
@@ -560,9 +693,55 @@
 
     <section class="payment-section section" id="payment-section">
         <div class="container">
-            <h3>Select Payment Method</h3>
-            <div id="card-list" class="mt-4">
-                <!-- Payment cards will be dynamically injected here -->
+            <h3 class="mb-4">Select Payment Method</h3>
+            <div class="row">
+                <!-- Left Column: Payment Cards -->
+                <div class="col-md-6">
+                    <!-- Selected UC Bundle with Logo -->
+                    <div class="selected-bundle mb-3">
+                        <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
+                        <div class="d-flex align-items-center">
+                            <img src="" alt="Bundle Logo" id="selected-bundle-logo" class="card-logo mr-3">
+                            <p id="selected-bundle-name" class="mb-0"></p>
+                        </div>
+                    </div>
+                    <!-- PUBG or BGMI ID Display -->
+                    <div class="pubg-id-display mb-3">
+                        <h5><i class="material-icons">account_circle</i> PUBG or BGMI ID:</h5>
+                        <p id="display-pubg-id"></p>
+                    </div>
+                    <!-- Payment Methods with Checkboxes -->
+                    <div id="card-list">
+                        <!-- Payment cards will be dynamically injected here -->
+                    </div>
+                </div>
+                <!-- Right Column: Checkout Details and Terms -->
+                <div class="col-md-6">
+                    <div class="checkout-details bg-dark p-4 rounded">
+                        <!-- Selected Payment Method -->
+                        <div class="selected-payment-method mb-3">
+                            <h5><i class="material-icons">credit_card</i> Selected Payment Method:</h5>
+                            <div class="d-flex align-items-center">
+                                <img src="" alt="Payment Method Logo" id="selected-card-logo" class="card-logo mr-3">
+                                <p id="selected-card-name" class="mb-0"></p>
+                            </div>
+                        </div>
+                        <!-- Current Date and Time -->
+                        <div class="current-datetime mb-3">
+                            <h5><i class="material-icons">event</i> Date & Time:</h5>
+                            <p id="current-datetime"></p>
+                        </div>
+                        <!-- Terms and Conditions -->
+                        <div class="terms-container">
+                            <input type="checkbox" id="agree-terms">
+                            <label for="agree-terms">I agree to the <a href="#">Terms and Conditions</a> and am willing to pay.</label>
+                        </div>
+                        <!-- Proceed Button -->
+                        <button class="btn btn-primary mt-3" id="proceed-payment-btn" onclick="finalizePayment()" disabled>
+                            <i class="bi bi-credit-card"></i> Proceed to Payment
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -594,15 +773,13 @@
             <hr>
             <div class="receipt-detail"><strong>Price:</strong> <span id="receipt-product-price">$99.99</span></div>
             <hr>
-            <div class="receipt-detail"><strong>PUBG ID:</strong> <span id="receipt-pubg-id"></span></div>
+            <div class="receipt-detail"><strong>PUBG or BGMI ID:</strong> <span id="receipt-pubg-id"></span></div>
             <hr>
             <div class="receipt-detail"><strong>Payment Method:</strong> <span id="receipt-card-name"></span></div>
             <hr>
             <div class="receipt-detail"><strong>Card Number:</strong> **** **** **** <span id="receipt-card-last4"></span></div>
             <hr>
-            <div class="receipt-detail"><strong>Shipping Address:</strong> <span id="shipping-address"></span></div>
-            <hr>
-            <div class="receipt-detail"><strong>Estimated Delivery:</strong> <span id="delivery-date"></span></div>
+            <div class="receipt-detail"><strong>Estimated Delivery:</strong> <span id="delivery-date">10 minutes</span></div>
             <hr>
             <div class="receipt-detail"><strong>Contact Support:</strong> <a href="mailto:support@ucpurchasing.com">support@ucpurchasing.com</a></div>
             <hr>
@@ -612,11 +789,21 @@
     </section>
 
     <section class="error-section section" id="error-section">
-        <div class="container">
+        <div class="error-section">
             <i class="bi bi-exclamation-circle-fill"></i>
             <h3>Payment Failed</h3>
-            <p>Reason: Server connection failed. Please check your network and try again.</p>
-            <p>If the problem persists, contact support at <a href="mailto:support@ucpurchasing.com">support@ucpurchasing.com</a>.</p>
+            <div class="selected-bundle mb-3">
+                <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
+                <div class="d-flex align-items-center justify-content-center">
+                    <img src="" alt="Bundle Logo" id="error-selected-bundle-logo" class="card-logo mr-3">
+                    <p id="error-selected-bundle-name" class="mb-0"></p>
+                </div>
+            </div>
+            <div class="pubg-id-display mb-3">
+                <h5><i class="material-icons">account_circle</i> PUBG or BGMI ID:</h5>
+                <p id="error-display-pubg-id"></p>
+            </div>
+            <p>Failed due to account discrepancy. You must buy a pack of at least 350k UC to proceed with your purchase.</p>
             <a href="#" class="btn btn-secondary mt-4" onclick="showSection('checkout-section')"><i
                     class="bi bi-arrow-left-circle"></i> Return to Checkout</a>
         </div>
@@ -640,24 +827,32 @@
 
     <script>
         const products = [
-
-    { name: "PUBG UC - 25k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 25 * 12.5 },
-    { name: "PUBG UC - 40k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 40 * 12.5 },
-    { name: "PUBG UC - 85k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 85 * 12.5 },
-    { name: "PUBG UC - 105k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 105 * 12.5 },
-    { name: "PUBG UC - 160k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 160 * 12.5 },
-    { name: "PUBG UC - 220k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 220 * 12.5 },
-    { name: "PUBG UC - 350k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 350 * 12.5 },
-    { name: "PUBG UC - 450k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 450 * 12.5 },
-    { name: "PUBG UC - 500k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 500 * 12.5 },
-    { name: "PUBG UC - 600k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 600 * 12.5 },
-    { name: "PUBG UC - 700k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 700 * 12.5 },
-    { name: "PUBG UC - 800k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 800 * 12.5 },
-    { name: "PUBG UC - 1000k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 1000 * 12.5 },
-    { name: "PUBG UC - 1500k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 1500 * 12.5 },
-    { name: "PUBG UC - 2000k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 2000 * 12.5 }
-
+            { name: "PUBG UC - 25k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 25 * 12.5 },
+            { name: "PUBG UC - 40k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 40 * 12.5 },
+            { name: "PUBG UC - 85k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 85 * 12.5 },
+            { name: "PUBG UC - 105k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 105 * 12.5 },
+            { name: "PUBG UC - 160k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 160 * 12.5 },
+            { name: "PUBG UC - 220k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 220 * 12.5 },
+            { name: "PUBG UC - 350k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 350 * 12.5 },
+            { name: "PUBG UC - 450k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 450 * 12.5 },
+            { name: "PUBG UC - 500k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 500 * 12.5 },
+            { name: "PUBG UC - 600k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 600 * 12.5 },
+            { name: "PUBG UC - 700k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 700 * 12.5 },
+            { name: "PUBG UC - 800k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 800 * 12.5 },
+            { name: "PUBG UC - 1000k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 1000 * 12.5 },
+            { name: "PUBG UC - 1500k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 1500 * 12.5 },
+            { name: "PUBG UC - 2000k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 2000 * 12.5 },
+            // BGMI Packs
+            { name: "BGMI UC - 25k", image: "https://i.pinimg.com/736x/59/0c/a7/590ca77b4d95284a9e16017234f683c5.jpg", price: 25 * 12.5 },
+            { name: "BGMI UC - 50k", image: "https://i.pinimg.com/736x/59/0c/a7/590ca77b4d95284a9e16017234f683c5.jpg", price: 50 * 12.5 }
         ];
+
+        let pubgId = ""; // Global variable to store PUBG or BGMI ID
+        let selectedBundleName = ""; // Global variable to store selected UC bundle
+        let selectedBundlePrice = 0; // Global variable to store selected UC bundle price
+        let selectedBundleImage = ""; // Global variable to store selected UC bundle image
+        let selectedType = ""; // Global variable to store type: PUBG or BGMI
+        let selectedCard = null; // Global variable to store selected payment card
 
         function getRandomAmount() {
             return (Math.random() * (150000 - 10000) + 10000).toFixed(2);
@@ -676,18 +871,23 @@
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
+
+            // If the payment section is shown, update the current date and time
+            if (sectionId === 'payment-section') {
+                updateCurrentDateTime();
+            }
         }
 
         function loadProducts() {
             const productList = document.getElementById('product-list');
             products.forEach(product => {
                 const productCard = `
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-6">
                         <div class="product-card text-center" tabindex="0" role="button" aria-label="Select ${product.name} for purchase">
-                            <img src="${product.image}" alt="${product.name}">
+                            <img src="${product.image}" alt="${product.name}" class="img-fluid mb-3">
                             <h4>${product.name}</h4>
-                            <p>$${product.price}</p>
-                            <a href="#" class="btn btn-primary btn-sm" onclick="addToCart('${product.name}', '${product.price}')" title="Add ${product.name} to cart"><i class="bi bi-cart-plus"></i> Purchase</a>
+                            <p>$${product.price.toFixed(2)}</p>
+                            <a href="#" class="btn btn-primary btn-sm" onclick="addToCart('${product.name}', '${product.price.toFixed(2)}', '${product.image}')" title="Add ${product.name} to cart"><i class="bi bi-cart-plus"></i> Purchase</a>
                         </div>
                     </div>
                 `;
@@ -695,11 +895,31 @@
             });
         }
 
-        function addToCart(productName, productPrice) {
+        function addToCart(productName, productPrice, productImage) {
+            pubgId = document.getElementById('pubg-id').value.trim();
+            if (!pubgId) {
+                alert("Please enter your PUBG or BGMI ID before making a purchase.");
+                return;
+            }
+            selectedBundleName = productName;
+            selectedBundlePrice = parseFloat(productPrice);
+            selectedBundleImage = productImage;
+
+            // Determine the type based on product name
+            if (productName.startsWith("BGMI")) {
+                selectedType = "BGMI";
+            } else {
+                selectedType = "PUBG";
+            }
+
             document.getElementById('cart-product-name').textContent = `Product: ${productName}`;
             document.getElementById('cart-product-price').textContent = `Price: $${productPrice}`;
             document.getElementById('receipt-product-name').textContent = productName;
             document.getElementById('receipt-product-price').textContent = `$${productPrice}`;
+            document.getElementById('display-pubg-id').textContent = pubgId;
+            document.getElementById('receipt-pubg-id').textContent = pubgId;
+            document.getElementById('selected-bundle-name').textContent = productName;
+            document.getElementById('selected-bundle-logo').src = productImage;
             showSection('checkout-section');
         }
 
@@ -707,19 +927,15 @@
             const cardList = document.getElementById('card-list');
             cardList.innerHTML = '';
 
-            paymentCards.forEach(card => {
+            paymentCards.forEach((card, index) => {
                 const cardElement = `
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <img src="${card.logo}" alt="${card.name}" class="card-logo" aria-hidden="true">
-                                <div>
-                                    <h5><i class="bi bi-credit-card-2-front"></i> ${card.name}</h5>
-                                    <p>Card Number: **** **** **** ${card.last4}</p>
-                                    <p>Balance: $${card.balance.toLocaleString()}</p>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-secondary" onclick="processPayment(${card.balance}, '${card.name}', '${card.last4}')" title="Pay with ${card.name}"><i class="bi bi-wallet2"></i> Pay with ${card.name}</a>
+                    <div class="payment-method-card">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="payment-card-${index}" onclick="selectPaymentMethod(${index})">
+                            <label class="form-check-label d-flex align-items-center" for="payment-card-${index}">
+                                <img src="${card.logo}" alt="${card.name}" class="card-logo mr-3">
+                                <span><i class="bi bi-credit-card-2-front"></i> ${card.name} (**** **** **** ${card.last4}) - Balance: $${card.balance}</span>
+                            </label>
                         </div>
                     </div>
                 `;
@@ -727,36 +943,101 @@
             });
         }
 
-        function proceedToPayment() {
-            const pubgId = document.getElementById('pubg-id').value;
-            if (!pubgId) {
-                alert("Please enter your PUBG ID.");
-                return;
+        function selectPaymentMethod(index) {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach((checkbox, idx) => {
+                if (idx !== index) {
+                    checkbox.checked = false;
+                }
+            });
+            if (checkboxes[index].checked) {
+                selectedCard = paymentCards[index];
+                document.getElementById('selected-card-name').textContent = selectedCard.name + ` (**** **** **** ${selectedCard.last4})`;
+                document.getElementById('selected-card-logo').src = selectedCard.logo;
+            } else {
+                selectedCard = null;
+                document.getElementById('selected-card-name').textContent = '';
+                document.getElementById('selected-card-logo').src = '';
             }
-            document.getElementById('receipt-pubg-id').textContent = pubgId;
-            showSection('payment-section');
+            toggleProceedButton();
         }
 
-        function processPayment(balance, cardName, last4) {
-            const productPriceText = document.getElementById('cart-product-price').textContent;
-            const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+        function proceedToPayment() {
+            if (!selectedBundleName) {
+                alert("No UC bundle selected. Please select a bundle before proceeding.");
+                showSection('product-section');
+                return;
+            }
+            if (!pubgId) {
+                alert("Please ensure your PUBG or BGMI ID is entered before proceeding to payment.");
+                showSection('product-section');
+                return;
+            }
+            showSection('payment-section');
+            adjustPaymentSection();
+        }
+
+        function adjustPaymentSection() {
+            const selectedTypeDisplay = document.getElementById('selected-bundle-name').textContent;
+            const typeLabel = selectedType === "BGMI" ? "BGMI" : "PUBG";
+
+            // Update labels or add specific elements based on type
+            // Example: Change the ID display label
+            const idLabel = document.querySelector('.pubg-id-display h5');
+            idLabel.innerHTML = `<i class="material-icons">account_circle</i> ${typeLabel} ID:`;
+
+            // Optionally, add type-specific styling or icons
+            // For demonstration, let's change the ID icon based on type
+            if (selectedType === "BGMI") {
+                idLabel.innerHTML = `<i class="bi bi-gamepad-fill"></i> ${typeLabel} ID:`;
+            } else {
+                idLabel.innerHTML = `<i class="bi bi-controller-fill"></i> ${typeLabel} ID:`;
+            }
+        }
+
+        function toggleProceedButton() {
+            const agreeTerms = document.getElementById('agree-terms').checked;
+            const isPaymentMethodSelected = selectedCard !== null;
+            const proceedButton = document.getElementById('proceed-payment-btn');
+
+            proceedButton.disabled = !(agreeTerms && isPaymentMethodSelected);
+        }
+
+        function finalizePayment() {
             const paymentSuccessSwitch = document.getElementById('payment-success-switch').checked;
 
-            if (balance >= productPrice) {
-                document.getElementById('receipt-card-name').textContent = cardName;
-                document.getElementById('receipt-card-last4').textContent = last4;
-                showSection('processing-section');
-                setTimeout(() => {
-                    showProcessingSteps(() => {
-                        if (paymentSuccessSwitch) {
-                            showSection('receipt-section');
-                        } else {
-                            showSection('error-section');
-                        }
-                    });
-                }, 1400);
+            if (selectedCard && selectedBundlePrice > 0) {
+                if (parseFloat(selectedCard.balance) >= selectedBundlePrice) {
+                    // Update receipt details
+                    document.getElementById('receipt-card-name').textContent = selectedCard.name + ` (**** **** **** ${selectedCard.last4})`;
+                    document.getElementById('receipt-card-last4').textContent = selectedCard.last4;
+                    // Update current date and time
+                    const currentDateTime = new Date().toLocaleString();
+                    document.getElementById('current-datetime').textContent = currentDateTime;
+                    // Proceed to processing section
+                    showSection('processing-section');
+                    setTimeout(() => {
+                        showProcessingSteps(() => {
+                            if (paymentSuccessSwitch) {
+                                showSection('receipt-section');
+                                // Deduct balance (for simulation purposes)
+                                selectedCard.balance = (parseFloat(selectedCard.balance) - selectedBundlePrice).toFixed(2);
+                                // Update payment cards with new balance
+                                loadPaymentCards();
+                            } else {
+                                // Update error section with selected bundle and PUBG or BGMI ID
+                                document.getElementById('error-selected-bundle-name').textContent = selectedBundleName;
+                                document.getElementById('error-selected-bundle-logo').src = selectedBundleImage;
+                                document.getElementById('error-display-pubg-id').textContent = pubgId;
+                                showSection('error-section');
+                            }
+                        });
+                    }, 1400);
+                } else {
+                    alert(`Insufficient balance on ${selectedCard.name} card. Please select another payment method.`);
+                }
             } else {
-                alert(`Insufficient balance on ${cardName} card. Please select another payment method.`);
+                alert("Please select a payment method and ensure all details are correct.");
             }
         }
 
@@ -779,13 +1060,11 @@
             const today = new Date();
             const orderNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
             const orderDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
-            const deliveryDate = `${today.getDate() + 7}/${today.getMonth() + 1}/${today.getFullYear()}`;
-            const address = "456 Elm St, Metropolis, NY, USA";
+            const deliveryDate = `10 minutes`;
 
             document.getElementById('order-number').textContent = orderNumber;
             document.getElementById('order-date').textContent = orderDate;
             document.getElementById('delivery-date').textContent = deliveryDate;
-            document.getElementById('shipping-address').textContent = address;
         }
 
         function toggleSwitch() {
@@ -793,11 +1072,19 @@
             switchContainer.style.display = switchContainer.style.display === 'none' ? 'flex' : 'none';
         }
 
+        function updateCurrentDateTime() {
+            const currentDateTime = new Date().toLocaleString();
+            document.getElementById('current-datetime').textContent = currentDateTime;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadProducts();
             loadPaymentCards();
             loadReceiptDetails();
             document.querySelector('.custom-switch').style.display = 'none';
+
+            // Add event listener to terms checkbox
+            document.getElementById('agree-terms').addEventListener('change', toggleProceedButton);
         });
     </script>
 
