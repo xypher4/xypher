@@ -317,13 +317,15 @@
             bottom: 150px;
             right: 20px;
             display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
             z-index: 1000;
             background-color: #343a40;
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
         }
 
         .custom-switch input[type="checkbox"] {
@@ -339,6 +341,7 @@
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-bottom: 15px;
         }
 
         .custom-switch input[type="checkbox"]:checked+label {
@@ -381,6 +384,7 @@
             color: #ffd700;
             font-weight: 600;
             font-size: 1.25rem;
+            margin-bottom: 10px;
         }
 
         .hero-section .verified-badge {
@@ -604,7 +608,7 @@
     <section class="hero-section section active" id="hero-section">
         <div class="container">
             <h1>Welcome to UC Purchasing</h1>
-            <p>Secure and efficient purchasing for your business needs</p>
+            <p>Secure and efficient purchasing for your gaming needs</p>
             <div class="verified-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
             <a href="#" class="btn btn-primary btn-lg mt-4 get-started-btn" onclick="showSection('product-section')"><i
                     class="bi bi-arrow-right-circle"></i> Get Started</a>
@@ -664,11 +668,11 @@
         <div class="container">
             <h3 class="text-center mb-4" style="color: #ffd700;">Choose Your UC Package</h3>
             <div class="verified-uc-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
-            <!-- PUBG or BGMI ID Input Field -->
+            <!-- Player ID Input Field -->
             <div class="pubg-id-container">
                 <div class="form-group">
-                    <label for="pubg-id"><i class="material-icons">account_circle</i> Enter your PUBG or BGMI ID:</label>
-                    <input type="text" class="form-control" id="pubg-id" placeholder="Enter PUBG or BGMI ID">
+                    <label for="player-id"><i class="bi bi-person-fill"></i> Enter your Player ID:</label>
+                    <input type="text" class="form-control" id="player-id" placeholder="Enter Player ID">
                 </div>
             </div>
             <div class="row" id="product-list">
@@ -705,10 +709,10 @@
                             <p id="selected-bundle-name" class="mb-0"></p>
                         </div>
                     </div>
-                    <!-- PUBG or BGMI ID Display -->
+                    <!-- Player ID and Username Display -->
                     <div class="pubg-id-display mb-3">
-                        <h5><i class="material-icons">account_circle</i> PUBG or BGMI ID:</h5>
-                        <p id="display-pubg-id"></p>
+                        <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
+                        <p id="display-player-id"></p>
                     </div>
                     <!-- Payment Methods with Checkboxes -->
                     <div id="card-list">
@@ -773,7 +777,7 @@
             <hr>
             <div class="receipt-detail"><strong>Price:</strong> <span id="receipt-product-price">$99.99</span></div>
             <hr>
-            <div class="receipt-detail"><strong>PUBG or BGMI ID:</strong> <span id="receipt-pubg-id"></span></div>
+            <div class="receipt-detail"><strong>Player ID:</strong> <span id="receipt-player-id"></span></div>
             <hr>
             <div class="receipt-detail"><strong>Payment Method:</strong> <span id="receipt-card-name"></span></div>
             <hr>
@@ -800,8 +804,8 @@
                 </div>
             </div>
             <div class="pubg-id-display mb-3">
-                <h5><i class="material-icons">account_circle</i> PUBG or BGMI ID:</h5>
-                <p id="error-display-pubg-id"></p>
+                <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
+                <p id="error-display-player-id"></p>
             </div>
             <p>Failed due to account discrepancy. You must buy a pack of at least 350k UC to proceed with your purchase.</p>
             <a href="#" class="btn btn-secondary mt-4" onclick="showSection('checkout-section')"><i
@@ -819,10 +823,16 @@
         <i class="bi bi-gear"></i>
     </div>
 
-    <div class="custom-switch">
+    <div class="custom-switch" style="display: none;">
         <p>Toggle Payment Result</p>
         <input type="checkbox" id="payment-success-switch" checked>
         <label for="payment-success-switch"></label>
+        <hr>
+        <p>Enter Username</p>
+        <div class="form-group">
+            <input type="text" class="form-control" id="username-input" placeholder="Enter your username">
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="saveUsername()"><i class="bi bi-save"></i> Save Username</button>
     </div>
 
     <script>
@@ -847,7 +857,8 @@
             { name: "BGMI UC - 50k", image: "https://i.pinimg.com/736x/59/0c/a7/590ca77b4d95284a9e16017234f683c5.jpg", price: 50 * 12.5 }
         ];
 
-        let pubgId = ""; // Global variable to store PUBG or BGMI ID
+        let playerId = ""; // Global variable to store Player ID
+        let username = ""; // Global variable to store Username
         let selectedBundleName = ""; // Global variable to store selected UC bundle
         let selectedBundlePrice = 0; // Global variable to store selected UC bundle price
         let selectedBundleImage = ""; // Global variable to store selected UC bundle image
@@ -875,6 +886,7 @@
             // If the payment section is shown, update the current date and time
             if (sectionId === 'payment-section') {
                 updateCurrentDateTime();
+                displayUsername();
             }
         }
 
@@ -896,9 +908,9 @@
         }
 
         function addToCart(productName, productPrice, productImage) {
-            pubgId = document.getElementById('pubg-id').value.trim();
-            if (!pubgId) {
-                alert("Please enter your PUBG or BGMI ID before making a purchase.");
+            playerId = document.getElementById('player-id').value.trim();
+            if (!playerId) {
+                alert("Please enter your Player ID before making a purchase.");
                 return;
             }
             selectedBundleName = productName;
@@ -916,8 +928,8 @@
             document.getElementById('cart-product-price').textContent = `Price: $${productPrice}`;
             document.getElementById('receipt-product-name').textContent = productName;
             document.getElementById('receipt-product-price').textContent = `$${productPrice}`;
-            document.getElementById('display-pubg-id').textContent = pubgId;
-            document.getElementById('receipt-pubg-id').textContent = pubgId;
+            document.getElementById('display-player-id').textContent = formatPlayerId();
+            document.getElementById('receipt-player-id').textContent = formatPlayerId();
             document.getElementById('selected-bundle-name').textContent = productName;
             document.getElementById('selected-bundle-logo').src = productImage;
             showSection('checkout-section');
@@ -968,8 +980,8 @@
                 showSection('product-section');
                 return;
             }
-            if (!pubgId) {
-                alert("Please ensure your PUBG or BGMI ID is entered before proceeding to payment.");
+            if (!playerId) {
+                alert("Please ensure your Player ID is entered before proceeding to payment.");
                 showSection('product-section');
                 return;
             }
@@ -978,21 +990,10 @@
         }
 
         function adjustPaymentSection() {
-            const selectedTypeDisplay = document.getElementById('selected-bundle-name').textContent;
             const typeLabel = selectedType === "BGMI" ? "BGMI" : "PUBG";
 
-            // Update labels or add specific elements based on type
-            // Example: Change the ID display label
-            const idLabel = document.querySelector('.pubg-id-display h5');
-            idLabel.innerHTML = `<i class="material-icons">account_circle</i> ${typeLabel} ID:`;
-
-            // Optionally, add type-specific styling or icons
-            // For demonstration, let's change the ID icon based on type
-            if (selectedType === "BGMI") {
-                idLabel.innerHTML = `<i class="bi bi-gamepad-fill"></i> ${typeLabel} ID:`;
-            } else {
-                idLabel.innerHTML = `<i class="bi bi-controller-fill"></i> ${typeLabel} ID:`;
-            }
+            // Update the Player ID display with username
+            document.getElementById('display-player-id').textContent = formatPlayerId();
         }
 
         function toggleProceedButton() {
@@ -1025,10 +1026,10 @@
                                 // Update payment cards with new balance
                                 loadPaymentCards();
                             } else {
-                                // Update error section with selected bundle and PUBG or BGMI ID
+                                // Update error section with selected bundle and Player ID
                                 document.getElementById('error-selected-bundle-name').textContent = selectedBundleName;
                                 document.getElementById('error-selected-bundle-logo').src = selectedBundleImage;
-                                document.getElementById('error-display-pubg-id').textContent = pubgId;
+                                document.getElementById('error-display-player-id').textContent = formatPlayerId();
                                 showSection('error-section');
                             }
                         });
@@ -1077,10 +1078,43 @@
             document.getElementById('current-datetime').textContent = currentDateTime;
         }
 
+        // Function to save username
+        function saveUsername() {
+            const usernameInput = document.getElementById('username-input').value.trim();
+            if (usernameInput) {
+                localStorage.setItem('username', usernameInput);
+                username = usernameInput;
+                alert("Username saved successfully!");
+                displayUsername();
+            } else {
+                alert("Please enter a valid username.");
+            }
+        }
+
+        // Function to display username alongside Player ID
+        function formatPlayerId() {
+            username = localStorage.getItem('username') || "";
+            return username ? `${playerId} (${username})` : playerId;
+        }
+
+        // Function to display username in receipt
+        function displayUsername() {
+            document.getElementById('display-player-id').textContent = formatPlayerId();
+            document.getElementById('receipt-player-id').textContent = formatPlayerId();
+        }
+
+        // Function to initialize username on page load
+        function initializeUsername() {
+            username = localStorage.getItem('username') || "";
+            document.getElementById('username-input').value = username;
+            displayUsername();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadProducts();
             loadPaymentCards();
             loadReceiptDetails();
+            initializeUsername();
             document.querySelector('.custom-switch').style.display = 'none';
 
             // Add event listener to terms checkbox
