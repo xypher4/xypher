@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWrnQ9JvoRxT2MZw1T"
         crossorigin="anonymous">
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UC Purchasing - Secure Platform</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWrnQ9JvoRxT2MZw1T"
+        crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -430,6 +443,7 @@
             padding: 60px 0;
         }
 
+        /* Changed the heading to "UC sending failed..." */
         .error-section h3 {
             font-size: 1.5rem;
             margin-top: 20px;
@@ -597,253 +611,295 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="bi bi-bag-check"></i> UC Purchasing</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+    <!-- ======================= PASSWORD SECTION ADDED BELOW ======================= -->
+    <div id="password-section" style="text-align:center; margin-top:50px;">
+        <h2>Enter Password to Access</h2>
+        <div class="container" style="max-width: 300px;">
+            <input type="password" id="passwordInput" class="form-control mb-2" placeholder="Enter password">
+            <button onclick="checkPassword()" class="btn btn-primary btn-block">Login</button>
+            <p id="passwordError" style="color:red; display:none; margin-top:10px;">Invalid password, please try again.</p>
         </div>
-    </nav>
-    <!-- Hero Section -->
-    <section class="hero-section section active" id="hero-section">
-        <div class="container">
-            <h1>Welcome to UC Purchasing</h1>
-            <p>Secure and efficient purchasing for your gaming needs</p>
-            <p class="hero-description">
-                Our platform offers the best UC packages for PUBG and BGMI players with seamless transactions and instant
-                delivery.
-            </p>
-            <div class="verified-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
-            <a href="#" class="btn btn-primary btn-lg mt-4 get-started-btn" onclick="showSection('product-section')"><i
-                    class="bi bi-arrow-right-circle"></i> Get Started</a>
-        </div>
-    </section>
-    <!-- Features Section -->
-    <section class="features section" id="features">
-        <div class="container">
-            <div class="row">
-                <!-- Feature Boxes -->
-                <!-- Include your feature boxes here -->
-                <!-- For brevity, the feature boxes are omitted in this example -->
+    </div>
+    <!-- ======================= END PASSWORD SECTION ======================= -->
+
+    <!-- Hide ALL original content until password is correct -->
+    <div id="mainContent" style="display:none;">
+
+        <!-- ======================= ORIGINAL CONTENT STARTS HERE ======================= -->
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#"><i class="bi bi-bag-check"></i> UC Purchasing</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-        </div>
-    </section>
-    <!-- Product Section -->
-    <section class="product-section section" id="product-section">
-        <div class="container">
-            <h3 class="text-center mb-4" style="color: #ffd700;">Choose Your UC Package</h3>
-            <div class="verified-uc-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
-            <!-- Player ID Input Field -->
-            <div class="pubg-id-container">
-                <div class="form-group">
-                    <label for="player-id"><i class="bi bi-person-fill"></i> Enter your Player ID:</label>
-                    <input type="text" class="form-control" id="player-id" placeholder="Enter Player ID">
+        </nav>
+        <!-- Hero Section -->
+        <section class="hero-section section active" id="hero-section">
+            <div class="container">
+                <h1>Welcome to UC Purchasing</h1>
+                <p>Secure and efficient purchasing for your gaming needs</p>
+                <p class="hero-description">
+                    Our platform offers the best UC packages for PUBG and BGMI players with seamless transactions and instant
+                    delivery.
+                </p>
+                <div class="verified-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
+                <a href="#" class="btn btn-primary btn-lg mt-4 get-started-btn" onclick="showSection('product-section')"><i
+                        class="bi bi-arrow-right-circle"></i> Get Started</a>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="features section" id="features">
+            <div class="container">
+                <div class="row">
+                    <!-- Feature Boxes (optional placeholders) -->
                 </div>
             </div>
-            <div class="row" id="product-list">
-                <!-- Product Cards will be injected here by JavaScript -->
-            </div>
-        </div>
-    </section>
-    <!-- Checkout Section -->
-    <section class="checkout-section section" id="checkout-section">
-        <div class="container">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="material-icons">shopping_cart</i> Your Cart</h5>
-                    <p id="cart-product-name">Product: PUBG UC - 6000</p>
-                    <p id="cart-product-price">Price: $99.99</p>
-                    <a href="#" class="btn btn-primary" onclick="proceedToPayment()"><i
-                            class="bi bi-credit-card"></i> Proceed to Payment</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Payment Section -->
-    <section class="payment-section section" id="payment-section">
-        <div class="container">
-            <h3 class="mb-4">Select Payment Method</h3>
-            <div class="row">
-                <!-- Left Column: Payment Cards -->
-                <div class="col-md-6">
-                    <!-- Selected UC Bundle with Logo -->
-                    <div class="selected-bundle mb-3">
-                        <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
-                        <div class="d-flex align-items-center">
-                            <img src="" alt="Bundle Logo" id="selected-bundle-logo" class="card-logo mr-3">
-                            <p id="selected-bundle-name" class="mb-0"></p>
-                        </div>
-                    </div>
-                    <!-- Player ID and Username Display -->
-                    <div class="pubg-id-display mb-3">
-                        <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
-                        <p id="display-player-id"></p>
-                    </div>
-                    <!-- Payment Methods with Custom Radio Buttons -->
-                    <div id="card-list">
-                        <!-- Payment cards will be dynamically injected here -->
+        </section>
+        <!-- Product Section -->
+        <section class="product-section section" id="product-section">
+            <div class="container">
+                <h3 class="text-center mb-4" style="color: #ffd700;">Choose Your UC Package</h3>
+                <div class="verified-uc-badge"><i class="bi bi-shield-check"></i> Verified by Dark-Web</div>
+                <!-- Player ID Input Field -->
+                <div class="pubg-id-container">
+                    <div class="form-group">
+                        <label for="player-id"><i class="bi bi-person-fill"></i> Enter your Player ID:</label>
+                        <input type="text" class="form-control" id="player-id" placeholder="Enter Player ID">
                     </div>
                 </div>
-                <!-- Right Column: Checkout Details and Terms -->
-                <div class="col-md-6">
-                    <div class="checkout-details bg-dark p-4 rounded">
-                        <!-- Selected Payment Method -->
-                        <div class="selected-payment-method mb-3">
-                            <h5><i class="material-icons">credit_card</i> Selected Payment Method:</h5>
+                <div class="row" id="product-list">
+                    <!-- Product Cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+        <!-- Checkout Section -->
+        <section class="checkout-section section" id="checkout-section">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="material-icons">shopping_cart</i> Your Cart</h5>
+                        <p id="cart-product-name">Product: PUBG UC - 6000</p>
+                        <p id="cart-product-price">Price: $99.99</p>
+                        <a href="#" class="btn btn-primary" onclick="proceedToPayment()"><i
+                                class="bi bi-credit-card"></i> Proceed to Payment</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Payment Section -->
+        <section class="payment-section section" id="payment-section">
+            <div class="container">
+                <h3 class="mb-4">Select Payment Method</h3>
+                <div class="row">
+                    <!-- Left Column: Payment Cards -->
+                    <div class="col-md-6">
+                        <!-- Selected UC Bundle with Logo -->
+                        <div class="selected-bundle mb-3">
+                            <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
                             <div class="d-flex align-items-center">
-                                <img src="" alt="Payment Method Logo" id="selected-card-logo" class="card-logo mr-3">
-                                <p id="selected-card-name" class="mb-0"></p>
+                                <img src="" alt="Bundle Logo" id="selected-bundle-logo" class="card-logo mr-3">
+                                <p id="selected-bundle-name" class="mb-0"></p>
                             </div>
                         </div>
-                        <!-- Current Date and Time -->
-                        <div class="current-datetime mb-3">
-                            <h5><i class="material-icons">event</i> Date & Time:</h5>
-                            <p id="current-datetime"></p>
+                        <!-- Player ID and Username Display -->
+                        <div class="pubg-id-display mb-3">
+                            <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
+                            <p id="display-player-id"></p>
                         </div>
-                        <!-- Terms and Conditions -->
-                        <div class="terms-container">
-                            <input type="checkbox" id="agree-terms">
-                            <label for="agree-terms">I agree to the <a href="#">Terms and Conditions</a> and am willing to
-                                pay.</label>
+                        <!-- Payment Methods with Custom Radio Buttons -->
+                        <div id="card-list">
+                            <!-- Payment cards will be dynamically injected here -->
                         </div>
-                        <!-- Proceed Button -->
-                        <button class="btn btn-primary mt-3" id="proceed-payment-btn" onclick="finalizePayment()"
-                            disabled>
-                            <i class="bi bi-credit-card"></i> Pay With Credit Card
-                        </button>
+                    </div>
+                    <!-- Right Column: Checkout Details and Terms -->
+                    <div class="col-md-6">
+                        <div class="checkout-details bg-dark p-4 rounded">
+                            <!-- Selected Payment Method -->
+                            <div class="selected-payment-method mb-3">
+                                <h5><i class="material-icons">credit_card</i> Selected Payment Method:</h5>
+                                <div class="d-flex align-items-center">
+                                    <img src="" alt="Payment Method Logo" id="selected-card-logo" class="card-logo mr-3">
+                                    <p id="selected-card-name" class="mb-0"></p>
+                                </div>
+                            </div>
+                            <!-- Current Date and Time -->
+                            <div class="current-datetime mb-3">
+                                <h5><i class="material-icons">event</i> Date & Time:</h5>
+                                <p id="current-datetime"></p>
+                            </div>
+                            <!-- Terms and Conditions -->
+                            <div class="terms-container">
+                                <input type="checkbox" id="agree-terms">
+                                <label for="agree-terms">I agree to the <a href="#">Terms and Conditions</a> and am willing
+                                    to
+                                    pay.</label>
+                            </div>
+                            <!-- Proceed Button -->
+                            <button class="btn btn-primary mt-3" id="proceed-payment-btn" onclick="finalizePayment()"
+                                disabled>
+                                <i class="bi bi-credit-card"></i> Pay With Credit Card
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Processing Section -->
-    <section class="processing-section section" id="processing-section">
-        <div class="container text-center">
-            <div class="processing-block">
-                <h3>Processing Payment...</h3>
-                <div class="loading-animation"></div>
-                <div id="processing-steps">
-                    <span class="processing-step"><i class="bi bi-server"></i> Connecting to server...</span>
-                    <span class="processing-step"><i class="bi bi-person-check"></i> Getting user info...</span>
-                    <span class="processing-step"><i class="bi bi-file-earmark-check"></i> Verifying merchant
-                        info...</span>
-                    <span class="processing-step"><i class="bi bi-currency-exchange"></i> Adding UC...</span>
-                    <span class="processing-step"><i class="bi bi-hourglass-split"></i> Finishing up...</span>
-                    <span class="processing-step"><i class="bi bi-check-circle"></i> Payment Success!</span>
+        </section>
+        <!-- Processing Section -->
+        <section class="processing-section section" id="processing-section">
+            <div class="container text-center">
+                <div class="processing-block">
+                    <h3>Processing Payment...</h3>
+                    <div class="loading-animation"></div>
+                    <div id="processing-steps">
+                        <span class="processing-step"><i class="bi bi-server"></i> Connecting to server...</span>
+                        <span class="processing-step"><i class="bi bi-person-check"></i> Getting user info...</span>
+                        <span class="processing-step"><i class="bi bi-file-earmark-check"></i> Verifying merchant
+                            info...</span>
+                        <span class="processing-step"><i class="bi bi-currency-exchange"></i> Adding UC...</span>
+                        <span class="processing-step"><i class="bi bi-hourglass-split"></i> Finishing up...</span>
+                        <span class="processing-step"><i class="bi bi-check-circle"></i> Payment Success!</span>
+                    </div>
                 </div>
             </div>
+        </section>
+        <!-- Receipt Section -->
+        <section class="receipt-section section" id="receipt-section">
+            <div class="container">
+                <h2><i class="bi bi-check-circle-fill"></i> Payment Successful</h2>
+                <hr>
+                <div class="receipt-details">
+                    <div class="receipt-detail">
+                        <strong>Order Number:</strong>
+                        <span id="order-number"></span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Date:</strong>
+                        <span id="order-date"></span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Product:</strong>
+                        <span id="receipt-product-name">PUBG UC - 6000</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Price:</strong>
+                        <span id="receipt-product-price">$99.99</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Player ID:</strong>
+                        <span id="receipt-player-id"></span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Payment Method:</strong>
+                        <span id="receipt-card-name"></span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Card Number:</strong>
+                        **** **** **** <span id="receipt-card-last4"></span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Estimated Delivery:</strong>
+                        <span id="delivery-date">10 minutes</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <strong>Contact Support:</strong>
+                        <a href="mailto:support@ucpurchasing.com">support@ucpurchasing.com</a>
+                    </div>
+                </div>
+                <hr>
+                <a href="#" class="btn btn-primary mt-4" onclick="showSection('hero-section')"><i
+                        class="bi bi-house-door"></i> Return to Home</a>
+            </div>
+        </section>
+        <!-- Error Section -->
+        <section class="error-section section" id="error-section">
+            <div class="container text-center">
+                <i class="bi bi-exclamation-circle-fill" style="font-size: 3rem; color: #ff4f4f;"></i>
+                <!-- Changed the heading to the new text -->
+                <h3>UC sending failed, new user in dark-web.</h3>
+                
+                <!-- Display Player ID -->
+                <div class="error-detail">
+                    <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
+                    <p id="error-display-player-id"></p>
+                </div>
+                <!-- Display Selected Bundle -->
+                <div class="error-detail">
+                    <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img src="" alt="Bundle Logo" id="error-selected-bundle-logo" class="card-logo mr-3">
+                        <p id="error-selected-bundle-name" class="mb-0"></p>
+                    </div>
+                </div>
+                <p>
+                    Failed due to account discrepancy. You must buy a pack of at least 350k UC to proceed with your purchase.
+                </p>
+                <a href="#" class="btn btn-secondary mt-3" onclick="showSection('checkout-section')"><i
+                        class="bi bi-arrow-left-circle"></i> Return to Checkout</a>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 UC Purchasing. All rights reserved. | <a href="#">Privacy Policy</a></p>
+            </div>
+        </footer>
+        <!-- Floating Button and Custom Switch -->
+        <div class="floating-button" onclick="toggleSwitch()">
+            <i class="bi bi-gear"></i>
         </div>
-    </section>
-    <!-- Receipt Section -->
-    <section class="receipt-section section" id="receipt-section">
-        <div class="container">
-            <h2><i class="bi bi-check-circle-fill"></i> Payment Successful</h2>
+        <div class="custom-switch" style="display: none;">
+            <p>Toggle Payment Result</p>
+            <input type="checkbox" id="payment-success-switch" checked>
+            <label for="payment-success-switch"></label>
             <hr>
-            <div class="receipt-details">
-                <div class="receipt-detail">
-                    <strong>Order Number:</strong>
-                    <span id="order-number"></span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Date:</strong>
-                    <span id="order-date"></span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Product:</strong>
-                    <span id="receipt-product-name">PUBG UC - 6000</span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Price:</strong>
-                    <span id="receipt-product-price">$99.99</span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Player ID:</strong>
-                    <span id="receipt-player-id"></span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Payment Method:</strong>
-                    <span id="receipt-card-name"></span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Card Number:</strong>
-                    **** **** **** <span id="receipt-card-last4"></span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Estimated Delivery:</strong>
-                    <span id="delivery-date">10 minutes</span>
-                </div>
-                <div class="receipt-detail">
-                    <strong>Contact Support:</strong>
-                    <a href="mailto:support@ucpurchasing.com">support@ucpurchasing.com</a>
-                </div>
+            <p>Enter Username</p>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username-input" placeholder="Enter your username">
             </div>
-            <hr>
-            <a href="#" class="btn btn-primary mt-4" onclick="showSection('hero-section')"><i
-                    class="bi bi-house-door"></i> Return to Home</a>
+            <button class="btn btn-secondary btn-sm" onclick="saveUsername()"><i class="bi bi-save"></i> Save
+                Username</button>
         </div>
-    </section>
-    <!-- Error Section -->
-    <section class="error-section section" id="error-section">
-        <div class="container text-center">
-            <i class="bi bi-exclamation-circle-fill" style="font-size: 3rem; color: #ff4f4f;"></i>
-            <h3>Payment Failed</h3>
-            <!-- Display Player ID -->
-            <div class="error-detail">
-                <h5><i class="bi bi-person-fill"></i> Player ID:</h5>
-                <p id="error-display-player-id"></p>
-            </div>
-            <!-- Display Selected Bundle -->
-            <div class="error-detail">
-                <h5><i class="material-icons">local_offer</i> Selected Bundle:</h5>
-                <div class="d-flex align-items-center justify-content-center">
-                    <img src="" alt="Bundle Logo" id="error-selected-bundle-logo" class="card-logo mr-3">
-                    <p id="error-selected-bundle-name" class="mb-0"></p>
-                </div>
-            </div>
-            <p>
-                Failed due to account discrepancy. You must buy a pack of at least 350k UC to proceed with your purchase.
-            </p>
-            <a href="#" class="btn btn-secondary mt-3" onclick="showSection('checkout-section')"><i
-                    class="bi bi-arrow-left-circle"></i> Return to Checkout</a>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 UC Purchasing. All rights reserved. | <a href="#">Privacy Policy</a></p>
-        </div>
-    </footer>
-    <!-- Floating Button and Custom Switch -->
-    <div class="floating-button" onclick="toggleSwitch()">
-        <i class="bi bi-gear"></i>
+
+        <!-- ======================= ORIGINAL CONTENT ENDS HERE ======================= -->
     </div>
-    <div class="custom-switch" style="display: none;">
-        <p>Toggle Payment Result</p>
-        <input type="checkbox" id="payment-success-switch" checked>
-        <label for="payment-success-switch"></label>
-        <hr>
-        <p>Enter Username</p>
-        <div class="form-group">
-            <input type="text" class="form-control" id="username-input" placeholder="Enter your username">
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="saveUsername()"><i class="bi bi-save"></i> Save
-            Username</button>
-    </div>
-    <!-- Scripts -->
-    <!-- jQuery, Popper.js, and Bootstrap JS CDN -->
+
+    <!-- ======================= JAVASCRIPT SECTION ======================= -->
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKpYfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4yfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6Jty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <!-- Custom Scripts -->
+        crossorigin="anonymous">
+    </script>
+
+    <!-- ========== PASSWORD CHECK SCRIPT (Password changed to "ali7245") ========== -->
+    <script>
+        function checkPassword() {
+            var inputVal = document.getElementById("passwordInput").value;
+            if (inputVal === "ali7245") {
+                // Hide the password section
+                document.getElementById("password-section").style.display = "none";
+                // Show the main content
+                document.getElementById("mainContent").style.display = "block";
+            } else {
+                document.getElementById("passwordError").style.display = "block";
+            }
+        }
+    </script>
+
+    <!-- ========== YOUR EXISTING CUSTOM SCRIPT ========== -->
     <script>
         const products = [
             { name: "PUBG UC - 25k", image: "https://cdn.midasbuy.com/images/apps/pubgm/1599546071746KqkIhrzG.png", price: 25 * 12.5 },
@@ -1101,6 +1157,6 @@
             document.getElementById('agree-terms').addEventListener('change', toggleProceedButton);
         });
     </script>
-</body>
 
+</body>
 </html>
